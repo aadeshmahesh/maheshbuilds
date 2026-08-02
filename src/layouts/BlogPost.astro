@@ -1,0 +1,203 @@
+---
+import Base from './Base.astro';
+
+interface Props {
+  title:       string;
+  description: string;
+  date:        Date;
+  tags:        string[];
+}
+
+const { title, description, date, tags } = Astro.props;
+
+const formatted = new Date(date).toLocaleDateString('en-US', {
+  year: 'numeric', month: 'long', day: 'numeric'
+});
+---
+
+<Base title={title} description={description}>
+  <article class="post">
+
+    <!-- Header -->
+    <header class="post-header">
+      <div class="post-eyebrow">
+        <time class="post-date">{formatted}</time>
+        <div class="post-tags">
+          {tags.map(t => <span class="tag">#{t}</span>)}
+        </div>
+      </div>
+      <h1 class="post-title">{title}</h1>
+      <p class="post-desc">{description}</p>
+      <hr class="post-rule" />
+    </header>
+
+    <!-- Body -->
+    <div class="post-body">
+      <slot />
+    </div>
+
+    <!-- Footer -->
+    <div class="post-footer">
+      <a href="/blog" class="back-link">← All posts</a>
+      <div class="post-tags">
+        {tags.map(t => <span class="tag">{t}</span>)}
+      </div>
+    </div>
+
+  </article>
+</Base>
+
+<style>
+  .post {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 64px 24px 96px;
+  }
+
+  .post-header { margin-bottom: 48px; }
+
+  .post-eyebrow {
+    display: flex; align-items: center; gap: 16px;
+    flex-wrap: wrap; margin-bottom: 20px;
+  }
+
+  .post-date {
+    font-family: var(--mono); font-size: 12px; color: var(--muted);
+  }
+
+  .post-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+
+  .tag {
+    font-family: var(--mono); font-size: 11px;
+    padding: 3px 9px; border-radius: 4px;
+    background: #EEECEA; color: var(--muted);
+    border: 1px solid var(--rule);
+  }
+
+  .post-title {
+    font-family: var(--display);
+    font-size: clamp(28px, 5vw, 44px);
+    font-weight: 800; letter-spacing: -0.03em;
+    line-height: 1.1; margin-bottom: 16px;
+    color: var(--ink);
+  }
+
+  .post-desc {
+    font-size: 17px; color: var(--ink2);
+    line-height: 1.7; max-width: 600px;
+  }
+
+  .post-rule {
+    border: none; border-top: 1px solid var(--rule);
+    margin-top: 32px;
+  }
+
+  /* ── Prose styles ── */
+  .post-body { font-size: 16px; line-height: 1.8; color: var(--ink2); }
+
+  .post-body h2 {
+    font-family: var(--display);
+    font-size: 24px; font-weight: 700;
+    color: var(--ink); letter-spacing: -0.02em;
+    margin: 48px 0 16px;
+  }
+
+  .post-body h3 {
+    font-size: 18px; font-weight: 600;
+    color: var(--ink); margin: 32px 0 12px;
+  }
+
+  .post-body p { margin-bottom: 20px; }
+
+  .post-body a { color: var(--indigo); text-decoration: underline; }
+
+  .post-body strong { color: var(--ink); font-weight: 600; }
+
+  .post-body blockquote {
+    border-left: 3px solid var(--indigo);
+    padding: 12px 20px;
+    margin: 24px 0;
+    background: #EEF0FD;
+    border-radius: 0 8px 8px 0;
+    color: var(--ink2);
+    font-style: italic;
+  }
+
+  .post-body ul, .post-body ol {
+    padding-left: 24px; margin-bottom: 20px;
+  }
+
+  .post-body li { margin-bottom: 6px; }
+
+  .post-body hr {
+    border: none; border-top: 1px solid var(--rule);
+    margin: 40px 0;
+  }
+
+  /* Code blocks */
+  .post-body pre {
+    background: #111218;
+    border: 1px solid #1e2d45;
+    border-radius: 10px;
+    padding: 20px 24px;
+    overflow-x: auto;
+    margin: 24px 0;
+    font-family: var(--mono);
+    font-size: 13px;
+    line-height: 1.7;
+    color: #c9d5f0;
+  }
+
+  .post-body code {
+    font-family: var(--mono);
+    font-size: 13px;
+    background: #EEECEA;
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: var(--indigo);
+    border: 1px solid var(--rule);
+  }
+
+  .post-body pre code {
+    background: none; border: none;
+    padding: 0; color: inherit;
+  }
+
+  /* Tables */
+  .post-body table {
+    width: 100%; border-collapse: collapse;
+    margin: 24px 0; font-size: 14px;
+  }
+
+  .post-body th {
+    text-align: left; font-family: var(--mono);
+    font-size: 11px; color: var(--muted);
+    text-transform: uppercase; letter-spacing: 0.08em;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .post-body td {
+    padding: 11px 14px;
+    border-bottom: 1px solid #EEECEA;
+    color: var(--ink2);
+  }
+
+  .post-body tr:hover td { background: #EEECEA; }
+
+  /* Post footer */
+  .post-footer {
+    margin-top: 64px; padding-top: 32px;
+    border-top: 1px solid var(--rule);
+    display: flex; align-items: center;
+    justify-content: space-between; flex-wrap: wrap; gap: 16px;
+  }
+
+  .back-link {
+    font-family: var(--mono); font-size: 13px;
+    color: var(--muted); text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .back-link:hover { color: var(--indigo); }
+</style>

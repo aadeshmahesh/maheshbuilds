@@ -1,0 +1,90 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+}
+const { title, description = "Mahesh Arivelayuthm — AI Engineering Blog" } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title} · maheshbuilds.dev</title>
+  <meta name="description" content={description} />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:      #F7F6F2;
+      --bg2:     #EEECEA;
+      --ink:     #111218;
+      --ink2:    #3D3F4E;
+      --muted:   #8B8FA8;
+      --rule:    #DDDBD5;
+      --indigo:  #4F46E5;
+      --green:   #059669;
+      --display: 'Syne', sans-serif;
+      --body:    'Inter', sans-serif;
+      --mono:    'JetBrains Mono', monospace;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--body);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px; height: 60px;
+      background: rgba(247,246,242,0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--rule);
+    }
+    .nav-logo {
+      font-family: var(--display); font-size: 15px; font-weight: 700;
+      color: var(--ink); text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a {
+      font-size: 13px; color: var(--muted); text-decoration: none;
+      font-weight: 500; transition: color 0.15s;
+    }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-links a.active { color: var(--indigo); }
+    footer {
+      border-top: 1px solid var(--rule);
+      padding: 28px 48px;
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 12px; color: var(--muted); font-family: var(--mono);
+      max-width: 1100px; margin: 0 auto;
+    }
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .nav-links { gap: 16px; }
+      footer { flex-direction: column; gap: 8px; padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="/" class="nav-logo">maheshbuilds.dev</a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/blog" class="active">Blog</a></li>
+      <li><a href="mailto:a.mahesh8589@gmail.com">Contact</a></li>
+    </ul>
+  </nav>
+
+  <slot />
+
+  <footer>
+    <span>© 2026 Mahesh Arivelayuthm</span>
+    <span>Built with Astro · Hosted on Cloudflare Pages</span>
+  </footer>
+</body>
+</html>

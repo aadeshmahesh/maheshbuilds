@@ -1,0 +1,156 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<Base title="Blog" description="AI Engineering insights — one concept per post">
+  <main class="blog-main">
+
+    <header class="blog-header">
+      <div class="eyebrow">Writing</div>
+      <h1>AI Engineering Blog</h1>
+      <p>One concept per post. Real code, real trade-offs, honest notes from building AI agents from scratch.</p>
+    </header>
+
+    <div class="post-list">
+      {posts.map((post, i) => (
+        <a href={`/blog/${post.slug}`} class="post-row">
+          <div class="post-row-left">
+            <span class="post-num">
+              {String(posts.length - i).padStart(2, '0')}
+            </span>
+            <div>
+              <div class="post-row-title">{post.data.title}</div>
+              <div class="post-row-desc">{post.data.description}</div>
+              <div class="post-row-tags">
+                {post.data.tags.map(t => <span class="tag">#{t}</span>)}
+              </div>
+            </div>
+          </div>
+          <div class="post-row-right">
+            <time class="post-row-date">
+              {new Date(post.data.date).toLocaleDateString('en-US', {
+                month: 'short', day: 'numeric', year: 'numeric'
+              })}
+            </time>
+            <span class="post-arrow">→</span>
+          </div>
+        </a>
+      ))}
+    </div>
+
+    {posts.length === 0 && (
+      <div class="empty">
+        <div class="empty-icon">✍️</div>
+        <p>First post coming soon.</p>
+      </div>
+    )}
+
+  </main>
+</Base>
+
+<style>
+  .blog-main {
+    max-width: 800px; margin: 0 auto;
+    padding: 64px 24px 96px;
+  }
+
+  .blog-header { margin-bottom: 56px; }
+
+  .eyebrow {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--muted); letter-spacing: 0.12em;
+    text-transform: uppercase; margin-bottom: 12px;
+  }
+
+  .blog-header h1 {
+    font-family: var(--display);
+    font-size: clamp(32px, 5vw, 48px);
+    font-weight: 800; letter-spacing: -0.03em;
+    line-height: 1.1; margin-bottom: 14px;
+  }
+
+  .blog-header p {
+    font-size: 16px; color: var(--ink2);
+    line-height: 1.7; max-width: 520px;
+  }
+
+  .post-list { display: flex; flex-direction: column; gap: 0; }
+
+  .post-row {
+    display: flex; align-items: flex-start;
+    justify-content: space-between; gap: 24px;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--rule);
+    text-decoration: none; color: inherit;
+    transition: background 0.15s;
+    border-radius: 4px;
+  }
+
+  .post-row:first-child { border-top: 1px solid var(--rule); }
+  .post-row:hover { padding-left: 8px; }
+
+  .post-row-left {
+    display: flex; gap: 20px; align-items: flex-start; flex: 1;
+  }
+
+  .post-num {
+    font-family: var(--mono); font-size: 12px;
+    color: var(--muted); flex-shrink: 0; margin-top: 3px;
+  }
+
+  .post-row-title {
+    font-family: var(--display);
+    font-size: 17px; font-weight: 700;
+    letter-spacing: -0.01em; margin-bottom: 6px;
+    color: var(--ink); transition: color 0.15s;
+  }
+
+  .post-row:hover .post-row-title { color: var(--indigo); }
+
+  .post-row-desc {
+    font-size: 13px; color: var(--muted);
+    line-height: 1.6; margin-bottom: 10px;
+  }
+
+  .post-row-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  .tag {
+    font-family: var(--mono); font-size: 10px;
+    padding: 2px 7px; border-radius: 4px;
+    background: var(--bg2); color: var(--muted);
+    border: 1px solid var(--rule);
+  }
+
+  .post-row-right {
+    display: flex; flex-direction: column;
+    align-items: flex-end; gap: 8px;
+    flex-shrink: 0;
+  }
+
+  .post-row-date {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--muted); white-space: nowrap;
+  }
+
+  .post-arrow {
+    font-size: 18px; color: var(--rule);
+    transition: color 0.15s, transform 0.15s;
+    display: inline-block;
+  }
+
+  .post-row:hover .post-arrow {
+    color: var(--indigo); transform: translateX(4px);
+  }
+
+  .empty {
+    text-align: center; padding: 64px 0;
+    color: var(--muted);
+  }
+
+  .empty-icon { font-size: 40px; margin-bottom: 12px; }
+  .empty p { font-size: 14px; }
+</style>
