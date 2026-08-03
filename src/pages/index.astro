@@ -7,13 +7,13 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
   .slice(0, 3);
 ---
 
-<Base title="Mahesh Arivelayutham — AI Full Stack Engineer">
+<Base title="Mahesh Arivelayuthm — AI Full Stack Engineer">
   <main class="home">
 
     <!-- Hero -->
     <section class="hero">
       <div class="hero-eyebrow">Scottsdale, AZ · Open to AI Full Stack roles</div>
-      <h1 class="hero-name">Mahesh<br/>Arivelayutham</h1>
+      <h1 class="hero-name">Mahesh<br/>Arivelayuthm</h1>
       <div class="hero-roles">
         <span class="role">Frontend Engineer</span>
         <span class="sep">/</span>
@@ -254,7 +254,7 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
               <span class="ptag">AGPL-3.0</span>
             </div>
           </div>
-          <a href="https://github.com/aadeshmahesh" target="_blank" class="project-link">View →</a>
+          <a href="https://github.com/aadeshmahesh/autism-worksheet-studio" target="_blank" class="project-link">View →</a>
         </div>
       </div>
 
@@ -277,7 +277,238 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
               <span class="ptag">MySQL</span>
             </div>
           </div>
-          <a href=https://github.com/aadeshmahesh" target="_blank" class="project-link">View →</a>
+          <a href="https://github.com/aadeshmahesh/timetrack" target="_blank" class="project-link">View →</a>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- AI Concepts -->
+    <section class="concepts">
+      <div class="section-header">
+        <div class="eyebrow">Core Concepts</div>
+        <a href="/blog" class="see-all">Read the blog →</a>
+      </div>
+
+      <div class="concepts-intro">
+        <p>
+          These 5 concepts are the foundation of every AI agent I build.
+          Understanding how they relate to each other is what separates
+          engineers who use AI from engineers who build AI systems.
+        </p>
+      </div>
+
+      <!-- Visual Diagram -->
+      <div class="diagram-box">
+        <div class="diagram-title">// How the layers fit together</div>
+        <div class="diagram-body">
+
+          <!-- Agent wraps everything -->
+          <div class="diagram-agent">
+            <div class="diagram-agent-label">🤖 AGENT — encapsulates everything below</div>
+
+            <div class="diagram-inner">
+
+              <!-- Model -->
+              <div class="diagram-model">
+                <div class="diagram-block block-model">
+                  🧠 MODEL (claude-sonnet-4-6)
+                  <div class="diagram-block-sub">reasons · decides · generates</div>
+                </div>
+              </div>
+
+              <!-- MCP Bridge -->
+              <div class="diagram-arrow-down">↓ MCP Protocol (the bridge)</div>
+
+              <!-- Tools + Knowledge side by side -->
+              <div class="diagram-bottom">
+                <div class="diagram-block block-tool">
+                  🔧 TOOLS
+                  <div class="diagram-block-sub">search · enable · schedule</div>
+                  <div class="diagram-block-sub">your code executes these</div>
+                </div>
+                <div class="diagram-block block-knowledge">
+                  📚 KNOWLEDGE
+                  <div class="diagram-block-sub">RAG · pgvector · Neon DB</div>
+                  <div class="diagram-block-sub">retrieved before LLM acts</div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Project mapping -->
+          <div class="diagram-projects">
+            <div class="diagram-projects-title">Your projects use this pattern:</div>
+            <div class="diagram-projects-grid">
+              <div class="diagram-project">
+                <span class="dp-badge">P1</span>
+                <span class="dp-name">Calendar Agent</span>
+                <span class="dp-concepts">Model + Tools (no knowledge)</span>
+              </div>
+              <div class="diagram-project">
+                <span class="dp-badge">P2</span>
+                <span class="dp-name">IT Support Agent</span>
+                <span class="dp-concepts">Model + Tools + Knowledge (JSON RAG)</span>
+              </div>
+              <div class="diagram-project">
+                <span class="dp-badge">P3</span>
+                <span class="dp-name">Site Search Agent</span>
+                <span class="dp-concepts">Model + Tools + Knowledge (pgvector)</span>
+              </div>
+              <div class="diagram-project">
+                <span class="dp-badge dp-badge-upcoming">P4</span>
+                <span class="dp-name">Restaurant Agent</span>
+                <span class="dp-concepts">Model + MCP + Tools + Knowledge + Memory</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 5 concept cards -->
+      <div class="concepts-grid">
+
+        <div class="concept-card">
+          <div class="concept-icon">🤖</div>
+          <div class="concept-name">Agent</div>
+          <div class="concept-one-line">Encapsulates Model + Tools + Knowledge + Loop</div>
+          <div class="concept-detail">
+            The whole system. Agent is the container that holds everything together —
+            the model reasons inside it, tools execute through it,
+            knowledge is retrieved by it, the loop runs inside it.
+            System prompt defines its personality and rules.
+          </div>
+          <div class="concept-example">while(stop_reason === "tool_use") — the core loop</div>
+          <div class="concept-user-example">
+            <div class="cue-label">User says</div>
+            <div class="cue-text">"My VPN is not working and I can't access Jira"</div>
+            <div class="cue-label">Agent orchestrates</div>
+            <div class="cue-text">RAG → check VPN → fix VPN → check Jira → fix Jira → confirm ✅</div>
+          </div>
+        </div>
+
+        <div class="concept-card">
+          <div class="concept-icon">🧠</div>
+          <div class="concept-name">Model</div>
+          <div class="concept-one-line">The brain — reasons and decides (lives inside Agent)</div>
+          <div class="concept-detail">
+            The LLM itself. Lives inside the agent.
+            Cannot act on the world alone — no memory, no internet, no tools.
+            The agent gives it tools and knowledge to work with.
+          </div>
+          <div class="concept-example">claude-sonnet-4-6 · llama3.1 · gpt-4o</div>
+          <div class="concept-user-example">
+            <div class="cue-label">User says</div>
+            <div class="cue-text">"Schedule a standup tomorrow at 10am"</div>
+            <div class="cue-label">Model reasons</div>
+            <div class="cue-text">"I should check availability first, then book the slot"</div>
+          </div>
+        </div>
+
+        <div class="concept-card">
+          <div class="concept-icon">🔧</div>
+          <div class="concept-name">Tool</div>
+          <div class="concept-one-line">The hands — executes real world actions</div>
+          <div class="concept-detail">
+            Functions YOUR code defines that the model can request.
+            LLM never calls tools directly — it says "call this",
+            your code executes it, returns result back to LLM.
+            MCP standardizes how tools are exposed.
+          </div>
+          <div class="concept-example">search_products · enable_vpn · schedule_event</div>
+          <div class="concept-user-example">
+            <div class="cue-label">Model requests</div>
+            <div class="cue-text">check_availability("2026-07-26", "10:00", "10:30")</div>
+            <div class="cue-label">Your code returns</div>
+            <div class="cue-text">&#123; available: true, slot: "10:00–10:30" &#125;</div>
+          </div>
+        </div>
+
+        <div class="concept-card">
+          <div class="concept-icon">📚</div>
+          <div class="concept-name">Knowledge</div>
+          <div class="concept-one-line">The memory — information retrieved before acting</div>
+          <div class="concept-detail">
+            External information retrieved before the LLM acts.
+            Prevents hallucination. Grounds responses in real data.
+            JSON keyword (P2) → pgvector embeddings (P3) → user memory (P4).
+          </div>
+          <div class="concept-example">RAG · pgvector · Voyage AI · embeddings</div>
+          <div class="concept-user-example">
+            <div class="cue-label">User searches</div>
+            <div class="cue-text">"footwear for jogging"</div>
+            <div class="cue-label">Knowledge retrieves</div>
+            <div class="cue-text">Nike Air Zoom (0.94) · Brooks Ghost (0.91) · Hoka Clifton (0.90)</div>
+          </div>
+        </div>
+
+        <div class="concept-card concept-card-featured">
+          <div class="concept-icon">🔌</div>
+          <div class="concept-name">MCP</div>
+          <div class="concept-one-line">The bridge — standard protocol between agent and tools</div>
+          <div class="concept-detail">
+            Model Context Protocol — Anthropic standard for connecting LLMs
+            to tools and knowledge. Like USB-C for AI. Write tools once in
+            an MCP server — any agent connects via URL. Claude Desktop,
+            Cursor, and your own agents all speak MCP. Used in Project 4.
+          </div>
+          <div class="concept-example">mcp_servers: [&#123; url: "http://localhost:3010/sse" &#125;]</div>
+          <div class="concept-user-example">
+            <div class="cue-label">Without MCP</div>
+            <div class="cue-text">executeTool() written in every app — duplicated everywhere</div>
+            <div class="cue-label">With MCP (Project 4)</div>
+            <div class="cue-text">One MCP server → Claude Desktop + your agent + any AI connects ✅</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Flow diagram -->
+      <div class="concepts-flow">
+        <div class="flow-title">// Request flow — what happens when user types</div>
+        <div class="flow-steps">
+          <div class="flow-step">
+            <div class="flow-step-icon">👤</div>
+            <div class="flow-step-label">User Input</div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-icon">🤖</div>
+            <div class="flow-step-label">Agent receives</div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-icon">🧠</div>
+            <div class="flow-step-label">Model reasons</div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-icon">🔌</div>
+            <div class="flow-step-label">MCP bridge</div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-icon">🔧</div>
+            <div class="flow-step-label">Tool executes</div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-icon">📚</div>
+            <div class="flow-step-label">Knowledge retrieved</div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-icon">🔁</div>
+            <div class="flow-step-label">Loop repeats</div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step-icon">✅</div>
+            <div class="flow-step-label">Result to user</div>
+          </div>
         </div>
       </div>
 
@@ -514,6 +745,322 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
   .tag {
     font-family: var(--mono); font-size: 10px; padding: 2px 7px;
     border-radius: 4px; background: var(--bg2); color: var(--muted); border: 1px solid var(--rule);
+  }
+
+
+
+
+  /* ── Visual Diagram ── */
+  .diagram-box {
+    background: #0B1120;
+    border-radius: 14px;
+    padding: 28px 32px;
+    margin-bottom: 32px;
+    border: 1px solid #1e2d45;
+  }
+
+  .diagram-title {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: #4a5a7a;
+    margin-bottom: 24px;
+    letter-spacing: 0.08em;
+  }
+
+  .diagram-agent {
+    border: 2px solid #3B8BEB;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  .diagram-agent-label {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: #3B8BEB;
+    font-weight: 700;
+    margin-bottom: 16px;
+    letter-spacing: 0.04em;
+  }
+
+  .diagram-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .diagram-model { width: 100%; }
+
+  .diagram-block {
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+    width: 100%;
+  }
+
+  .block-model {
+    background: rgba(139,92,246,0.15);
+    border: 1px solid rgba(139,92,246,0.4);
+    color: #a78bfa;
+  }
+
+  .block-tool {
+    background: rgba(245,158,11,0.1);
+    border: 1px solid rgba(245,158,11,0.3);
+    color: #F59E0B;
+    flex: 1;
+  }
+
+  .block-knowledge {
+    background: rgba(0,217,163,0.1);
+    border: 1px solid rgba(0,217,163,0.3);
+    color: #00D9A3;
+    flex: 1;
+  }
+
+  .diagram-block-sub {
+    font-size: 10px;
+    font-weight: 400;
+    opacity: 0.7;
+    margin-top: 4px;
+  }
+
+  .diagram-arrow-down {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: #3B8BEB;
+    text-align: center;
+    letter-spacing: 0.06em;
+  }
+
+  .diagram-bottom {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+  }
+
+  /* Project mapping */
+  .diagram-projects {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid #1e2d45;
+    border-radius: 10px;
+    padding: 16px 20px;
+  }
+
+  .diagram-projects-title {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: #4a5a7a;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 12px;
+  }
+
+  .diagram-projects-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .diagram-project {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+  }
+
+  .dp-badge {
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 4px;
+    background: rgba(59,139,235,0.15);
+    color: #3B8BEB;
+    border: 1px solid rgba(59,139,235,0.3);
+    flex-shrink: 0;
+    font-weight: 700;
+  }
+
+  .dp-badge-upcoming {
+    background: rgba(245,158,11,0.15);
+    color: #F59E0B;
+    border-color: rgba(245,158,11,0.3);
+  }
+
+  .dp-name {
+    color: #E8EDF5;
+    font-weight: 600;
+    flex-shrink: 0;
+    min-width: 140px;
+  }
+
+  .dp-concepts {
+    color: #4a5a7a;
+    font-family: var(--mono);
+    font-size: 11px;
+  }
+
+  .concept-user-example {
+    margin-top: 12px;
+    padding: 10px 12px;
+    background: var(--bg2);
+    border-radius: 8px;
+    border: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .cue-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .cue-text {
+    font-size: 12px;
+    color: var(--ink2);
+    line-height: 1.5;
+    margin-bottom: 4px;
+    font-family: var(--mono);
+  }
+
+  /* ── Concepts Section ── */
+  .concepts {
+    padding: 64px 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  .concepts-intro {
+    margin-bottom: 32px;
+  }
+
+  .concepts-intro p {
+    font-size: 15px;
+    color: var(--ink2);
+    line-height: 1.75;
+    max-width: 600px;
+  }
+
+  .concepts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .concept-card {
+    background: white;
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    padding: 22px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .concept-card:hover {
+    border-color: var(--indigo);
+    transform: translateY(-2px);
+  }
+
+  .concept-card-featured {
+    border-color: var(--indigo);
+    background: #F8F9FF;
+  }
+
+  .concept-icon { font-size: 28px; margin-bottom: 10px; }
+
+  .concept-name {
+    font-family: var(--display);
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 4px;
+    letter-spacing: -0.01em;
+  }
+
+  .concept-one-line {
+    font-size: 12px;
+    color: var(--indigo);
+    font-weight: 600;
+    margin-bottom: 10px;
+    font-family: var(--mono);
+  }
+
+  .concept-detail {
+    font-size: 13px;
+    color: var(--ink2);
+    line-height: 1.7;
+    margin-bottom: 12px;
+  }
+
+  .concept-example {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    background: var(--bg2);
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid var(--rule);
+    line-height: 1.5;
+  }
+
+  /* ── Flow Diagram ── */
+  .concepts-flow {
+    background: var(--ink);
+    border-radius: 14px;
+    padding: 28px 32px;
+  }
+
+  .flow-title {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: #556677;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 20px;
+  }
+
+  .flow-steps {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .flow-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 10px 14px;
+    min-width: 80px;
+  }
+
+  .flow-step-icon { font-size: 20px; }
+
+  .flow-step-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: #8899AA;
+    text-align: center;
+    line-height: 1.4;
+    white-space: nowrap;
+  }
+
+  .flow-arrow {
+    font-size: 16px;
+    color: #334455;
+    flex-shrink: 0;
   }
 
   @media (max-width: 768px) {
